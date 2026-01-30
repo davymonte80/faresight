@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FareSight - Smart Flight Search & Booking Platform
 
-## Getting Started
+A comprehensive flight search, booking, and analytics platform featuring real-time price tracking, advanced filtering, and complete Amadeus API integration.
 
-First, run the development server:
+## ✨ Features
+
+### 🔍 Smart Flight Search
+- **Global Airport Coverage**: Search 50+ airports with enhanced African airport visibility
+- **Origin & Destination Search**: Easy IATA code input with autocomplete
+- **Flexible Travel Options**: Round-trip and one-way flights
+- **Passenger Selection**: Support for adults, children, and infants
+- **Travel Class Options**: Economy, Premium Economy, Business, First Class
+- **Recent Searches**: Quick access to your previous searches (stored locally)
+
+### 💰 Advanced Price Trends & Analytics
+- **Interactive Charts**: Line and bar chart visualizations with 250 data points
+- **Time Period Selection**: 7 Days, 1 Month, 3 Months, 6 Months, 1 Year
+- **Dual Data Sources**: Amadeus API + Search Results fallback
+- **Price Analytics**: View min, max, and average prices across dates
+- **Flight Count**: See availability at different price points
+- **Date-Based Trends**: Identify the best days to travel
+- **Responsive Charts**: Optimized for mobile, tablet, and desktop
+
+### 🎫 Complete Booking Flow
+- **Flight Offers Price**: Confirm real-time pricing before booking
+- **Create Orders**: Complete booking with traveler details
+- **Order Management**: View and cancel bookings
+- **Seatmap Display**: Select seats with pricing
+- **Branded Fares**: Upsell to premium fare options
+
+### 🔧 Advanced Filtering
+- **Price Range Slider**: Filter flights by maximum price
+- **Stops Filter**: Non-stop, 1 stop, 2+ stops options
+- **Airlines Filter**: Select specific airlines from results
+- **Departure Time Range**: Choose preferred departure hours (0-24)
+- **Arrival Time Range**: Choose preferred arrival hours (0-24)
+- **Duration Limits**: Filter by total flight duration
+- **Clear All**: Reset filters with one click
+
+### 🎯 Smart Sorting & Recommendations
+- **Multiple Sort Options**: Price, Duration, or Departure time
+- **Smart Badges**: "Cheapest", "Fastest", or "Best Value" indicators
+- **Detailed Flight Information**: View all segments, stops, and timings
+- **Flight Choice Prediction**: AI-powered recommendations
+- **Travel Recommendations**: Personalized destination suggestions
+
+### 📊 Analytics & Insights
+- **Flight Price Analysis**: Price metrics, quartiles, and trends
+- **Flight Delay Prediction**: AI-powered delay probability
+- **On Demand Flight Status**: Real-time flight tracking
+- **Airport On-Time Performance**: Delay statistics by airport
+- **Airport Routes**: All direct destinations from an airport
+
+### 📱 Fully Responsive Design
+- **Mobile First**: Optimized for phones and tablets
+- **Desktop View**: Advanced layout with side-by-side filters and charts
+- **Adaptive UI**: Filters and charts adapt to screen size
+- **Dark Mode**: Full dark mode support
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19 with Next.js 16.1.6 (App Router)
+- **Styling**: Tailwind CSS 3.4.17
+- **Charts**: Recharts 3.7.0
+- **API**: Amadeus Self-Service API (22 endpoints integrated)
+- **UI Components**: Radix UI
+- **Icons**: Lucide React
+- **Type Safety**: TypeScript 5.7.3
+- **Build**: Turbopack
+
+## 🌍 Amadeus API Integration (22 APIs)
+
+### Flight Shopping & Search
+✅ Flight Offers Search  
+✅ Flight Offers Price  
+✅ Flight Inspiration Search  
+✅ Flight Cheapest Date Search  
+✅ Flight Availabilities Search  
+✅ Flight Choice Prediction  
+
+### Booking & Management
+✅ Flight Create Orders  
+✅ Flight Order Management (GET/DELETE)  
+
+### Upselling
+✅ Seatmap Display  
+✅ Branded Fares Upsell  
+
+### Analytics & Predictions
+✅ Flight Price Analysis  
+✅ Flight Delay Prediction  
+✅ On Demand Flight Status  
+
+### Airport Services
+✅ Airport & City Search  
+✅ Airport Nearest Relevant  
+✅ Airport Routes API  
+✅ Airport On-Time Performance  
+
+### Airline Information
+✅ Airline Code Lookup  
+✅ Airline Routes  
+✅ Flight Check-in Links  
+
+### Travel Recommendations
+✅ Travel Recommendations  
+
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment variables
+echo "AMADEUS_API_KEY=your_key" > .env.local
+echo "AMADEUS_API_SECRET=your_secret" >> .env.local
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📚 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+faresight/
+├── app/
+│   ├── api/flights/search/    # Flight search API endpoint
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/
+│   ├── flight-card.tsx
+│   ├── flight-filters.tsx
+│   ├── flight-search-form.tsx
+│   ├── price-trend-chart.tsx
+│   └── ui/
+├── lib/
+│   ├── amadeus.ts
+│   ├── flight-utils.ts
+│   └── utils.ts
+└── types/
+    └── flight.ts
+```
 
-## Learn More
+## ✅ Implementation Checklist
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Search & Results with Origin, Destination, Dates inputs
+- [x] Flight results list with detailed information
+- [x] Live price trend chart with line/bar options
+- [x] Complex filtering (stops, price, airlines, times)
+- [x] Real-time chart updates with filters
+- [x] Fully responsive mobile & desktop design
+- [x] Smart flight badges (cheapest, fastest, best value)
+- [x] Expandable flight details
+- [x] Recent searches with localStorage
+- [x] Error handling and loading states
+- [x] Dark mode support
+- [x] TypeScript for type safety
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Clean, modern UI with gradient backgrounds
+- Smooth animations and transitions
+- Accessible color contrasts
+- Responsive grid layouts
+- Dark mode with Tailwind CSS
+- Professional typography with system fonts
