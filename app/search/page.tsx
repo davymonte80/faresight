@@ -27,7 +27,6 @@ export default function SearchPage() {
     departureTimeRange: [0, 24],
     arrivalTimeRange: [0, 24],
     duration: null,
-    cabinClass: null,
   });
   const [searchParams, setSearchParams] = useState<{
     origin: string;
@@ -37,7 +36,7 @@ export default function SearchPage() {
     adults: number;
     children: number;
     infants: number;
-    cabinClass: string;
+    cabinClass?: string;
   } | null>(null);
 
   const [recentSearches, setRecentSearches] = useState<
@@ -58,10 +57,15 @@ export default function SearchPage() {
     const saved = localStorage.getItem("recentSearches");
     if (saved) {
       try {
-        const parsed = JSON.parse(saved);
+        const parsed = JSON.parse(saved) as Array<{
+          origin: string;
+          destination: string;
+          date: string;
+          timestamp: number;
+        }>;
         // Keep only searches from last 7 days
         const filtered = parsed.filter(
-          (search: any) =>
+          (search) =>
             Date.now() - search.timestamp < 7 * 24 * 60 * 60 * 1000,
         );
         setRecentSearches(filtered);
@@ -83,7 +87,7 @@ export default function SearchPage() {
       if (response.ok) {
         const data = await response.json();
         const alternatives =
-          data.data?.slice(0, 6).map((item: any) => ({
+          data.data?.slice(0, 6).map((item: { destination: string; price: { total: string }; departureDate: string }) => ({
             destination: item.destination,
             price: parseFloat(item.price.total),
             date: item.departureDate,
@@ -96,7 +100,7 @@ export default function SearchPage() {
     }
   };
 
-  const handleSearch = async (params: {
+  const handleSearch = (params: {
     origin: string;
     destination: string;
     departureDate: string;
@@ -104,92 +108,116 @@ export default function SearchPage() {
     adults: number;
     children: number;
     infants: number;
-    cabinClass: string;
+    cabinClass?: string;
   }) => {
-    setLoading(true);
-    setError(null);
-    setFlights([]);
-    setSuggestions([]);
-    setFiltersOpen(true);
+    // Use an async IIFE so the exported function returns void (matches expected onSearch)
+    (async () => {
+      setLoading(true);
+      setError(null);
+      setFlights([]);
+      setSuggestions([]);
+      setFiltersOpen(true);
 
-    try {
-      const queryParams = new URLSearchParams({
-        origin: params.origin.toUpperCase(),
-        destination: params.destination.toUpperCase(),
-        departureDate: params.departureDate,
-        adults: params.adults.toString(),
-        children: params.children.toString(),
-        infants: params.infants.toString(),
-        cabinClass: params.cabinClass,
-        ...(params.returnDate && { returnDate: params.returnDate }),
-      });
+      try {
+        const cabin = params.cabinClass ?? "Economy";
+        const queryParams = new URLSearchParams({
+          origin: params.origin.toUpperCase(),
+          destination: params.destination.toUpperCase(),
+          departureDate: params.departureDate,
+          adults: params.adults.toString(),
+          children: params.children.toString(),
+          infants: params.infants.toString(),
+          cabinClass: cabin,
+          ...(params.returnDate && { returnDate: params.returnDate }),
+        });
 
-      const response = await fetch(`/api/flights/search?${queryParams}`);
+        const response = await fetch(`/api/flights/search?${queryParams}`);
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (!response.ok || !data.success) {
-        throw new Error(
-          data.error || data.message || `Search failed with status ${response.status}`,
-        );
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.error ||
+              data.message ||
+              `Search failed with status ${response.status}`,
+          );
+        }
+
+        const flightData: FlightOffer[] = (data.data || []) as FlightOffer[];
+        setFlights(flightData);
+        setSearchParams({ ...params, cabinClass: cabin });
+
+        // Generate intelligent suggestions based on search patterns
+        if (flightData.length > 0) {
+          const suggested = generateSuggestions(params, flightData);
+          setSuggestions(suggested);
+        }
+
+        // Save to recent searches
+        const newSearch = {
+          origin: params.origin,
+          destination: params.destination,
+          date: new Date().toISOString().split("T")[0],
+          timestamp: Date.now(),
+        };
+
+        const updated = [newSearch, ...recentSearches]
+          .filter(
+            (search, index, self) =>
+              index ===
+              self.findIndex(
+                (s) =>
+                  s.origin === search.origin &&
+                  s.destination === search.destination,
+              ),
+          )
+          .slice(0, 5);
+
+        setRecentSearches(updated);
+        localStorage.setItem("recentSearches", JSON.stringify(updated));
+
+        if (flightData.length === 0) {
+          setError("No flights found for the specified criteria");
+          // Fetch alternative suggestions
+          await fetchAlternativeSuggestions(params);
+          toast.info("Showing alternative destinations");
+        } else {
+          const cheapest = Math.min(
+            ...flightData.map((f) => parseFloat(f.price.total)),
+          );
+          toast.success(
+            `${flightData.length} options found from $${cheapest.toFixed(0)}`,
+          );
+        }
+      } catch (err) {
+        const message =
+          err instanceof Error
+            ? err.message
+            : "Search failed due to system error";
+        setError(message);
+        toast.error(message);
+      } finally {
+        setLoading(false);
       }
-
-      const flightData = data.data || [];
-      setFlights(flightData);
-      setSearchParams(params);
-
-      // Generate intelligent suggestions based on search patterns
-      if (flightData.length > 0) {
-        const suggested = generateSuggestions(params, flightData);
-        setSuggestions(suggested);
-      }
-
-      // Save to recent searches
-      const newSearch = {
-        origin: params.origin,
-        destination: params.destination,
-        date: new Date().toISOString().split("T")[0],
-        timestamp: Date.now(),
-      };
-
-      const updated = [newSearch, ...recentSearches]
-        .filter(
-          (search, index, self) =>
-            index ===
-            self.findIndex(
-              (s) =>
-                s.origin === search.origin &&
-                s.destination === search.destination,
-            ),
-        )
-        .slice(0, 5);
-
-      setRecentSearches(updated);
-      localStorage.setItem("recentSearches", JSON.stringify(updated));
-
-      if (flightData.length === 0) {
-        setError("No flights found for the specified criteria");
-        // Fetch alternative suggestions
-        await fetchAlternativeSuggestions(params);
-        toast.info("Showing alternative destinations");
-      } else {
-        const cheapest = Math.min(...flightData.map((f) => f.price.total));
-        toast.success(`${flightData.length} options found from $${cheapest}`);
-      }
-    } catch (err) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : "Search failed due to system error";
-      setError(message);
-      toast.error(message);
-    } finally {
-      setLoading(false);
-    }
+    })();
   };
 
-  const generateSuggestions = (params: any, flights: FlightOffer[]) => {
-    const basePrice = Math.min(...flights.map((f) => f.price.total));
+  const generateSuggestions = (
+    params: {
+      origin: string;
+      destination: string;
+      departureDate: string;
+      returnDate?: string;
+      adults: number;
+      children: number;
+      infants: number;
+      cabinClass?: string;
+    },
+    flights: FlightOffer[],
+  ): Array<{ destination: string; price: number; date: string; savings: number }> => {
+    const basePrice = Math.min(
+      ...flights.map((f) => parseFloat(f.price.total)),
+    );
     return [
       {
         destination: "Alternative Date",
@@ -217,14 +245,27 @@ export default function SearchPage() {
   };
 
   function calculateOptimalScore(flight: FlightOffer): number {
-    const maxPrice = Math.max(...flights.map((f) => f.price.total)) || flight.price.total;
+    const maxPrice =
+      Math.max(...flights.map((f) => parseFloat(f.price.total))) ||
+      parseFloat(flight.price.total);
+
+    // Calculate duration in minutes from ISO 8601 duration string
+    const getDurationMinutes = (duration: string): number => {
+      const match = duration.match(/PT(\d+)H(\d+)M/);
+      if (match) {
+        return parseInt(match[1]) * 60 + parseInt(match[2]);
+      }
+      return 1440; // Default 24 hours
+    };
+
     const maxDuration = Math.max(
-      ...flights.map((f) => f.itineraries[0].durationMinutes || 1440),
+      ...flights.map((f) => getDurationMinutes(f.itineraries[0].duration)),
     );
 
-    const priceScore = (1 - flight.price.total / maxPrice) * 0.5;
+    const priceScore = (1 - parseFloat(flight.price.total) / maxPrice) * 0.5;
     const durationScore =
-      (1 - (flight.itineraries[0].durationMinutes || 1440) / maxDuration) * 0.3;
+      (1 - getDurationMinutes(flight.itineraries[0].duration) / maxDuration) *
+      0.3;
 
     // Convenience score based on departure time (prefer 8 AM - 8 PM)
     const departureHour = new Date(
@@ -244,7 +285,6 @@ export default function SearchPage() {
       departureTimeRange: filters.departureTimeRange,
       arrivalTimeRange: filters.arrivalTimeRange,
       duration: filters.duration || undefined,
-      cabinClass: filters.cabinClass || undefined,
     });
 
     if (sortBy === "optimal") {
@@ -262,7 +302,6 @@ export default function SearchPage() {
   }, [flights, filters, sortBy]);
 
   // calculateOptimalScore moved above to avoid TDZ ReferenceError
-
 
   const renderFlights = () => {
     if (loading) {
@@ -338,7 +377,6 @@ export default function SearchPage() {
                   departureTimeRange: [0, 24],
                   arrivalTimeRange: [0, 24],
                   duration: null,
-                  cabinClass: null,
                 })
               }
               className="text-sm text-amber-700 hover:text-amber-600 transition-colors"
@@ -449,7 +487,7 @@ export default function SearchPage() {
               variant="outline"
               className="border-amber-800/20 bg-amber-950/5 text-foreground/70 rounded-none px-3"
             >
-              {searchParams.cabinClass}
+              {searchParams.cabinClass || "Economy"}
             </Badge>
           </div>
         </div>
@@ -498,7 +536,7 @@ export default function SearchPage() {
         {/* Search Form */}
         <Card className="mb-10 p-8 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
           <div className="mb-6">
-            <div className="h-px w-24 bg-gradient-to-r from-amber-700 to-amber-600 mb-4" />
+            <div className="h-px w-24 bg-linear-to-r from-amber-700 to-amber-600 mb-4" />
             <h1 className="text-3xl font-light tracking-tight">
               Flight Intelligence Analysis
             </h1>

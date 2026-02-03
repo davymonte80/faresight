@@ -439,7 +439,7 @@ export default function LandingPage() {
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Minimal Background */}
           <div className="absolute inset-0 border border-amber-800/10" />
-          <div className="absolute -inset-[1px] border border-amber-800/5" />
+          <div className="absolute -inset-px border border-amber-800/5" />
 
           <div className="relative px-8 py-20 text-center">
             <motion.div

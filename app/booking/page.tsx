@@ -81,12 +81,15 @@ export default function BookingPage() {
     flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
-      <main className="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-8">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-amber-950/5">
+      {/* Background Pattern */}
+      <div className="fixed inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(120,53,15,0.01)_25%,rgba(120,53,15,0.01)_50%,transparent_50%,transparent_75%,rgba(120,53,15,0.01)_75%)] bg-[length:4px_4px] pointer-events-none" />
+
+      <main className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Button
           variant="ghost"
-          onClick={() => router.push("/")}
-          className="mb-6"
+          onClick={() => router.push("/search")}
+          className="mb-6 hover:bg-amber-950/10"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Search
@@ -94,10 +97,13 @@ export default function BookingPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold mb-6 text-foreground">
-                Flight Details
-              </h2>
+            <Card className="p-6 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
+              <div className="mb-6">
+                <div className="h-px w-16 bg-gradient-to-r from-amber-700 to-amber-600 mb-4" />
+                <h2 className="text-2xl font-light tracking-tight text-foreground">
+                  Flight Details
+                </h2>
+              </div>
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -110,7 +116,7 @@ export default function BookingPage() {
                       {new Date(segment.departure.at).toLocaleString()}
                     </p>
                   </div>
-                  <Plane className="w-8 h-8 text-primary" />
+                  <Plane className="w-8 h-8 text-amber-700" />
                   <div className="text-right">
                     <p className="text-sm text-muted-foreground">To</p>
                     <p className="text-2xl font-bold">
@@ -150,16 +156,19 @@ export default function BookingPage() {
               </div>
             </Card>
 
-            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-              <h3 className="text-xl font-bold mb-2 text-foreground">
-                Passenger Information
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+            <Card className="p-6 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
+              <div className="mb-4">
+                <div className="h-px w-12 bg-gradient-to-r from-amber-700 to-amber-600 mb-4" />
+                <h3 className="text-xl font-light tracking-tight text-foreground">
+                  Passenger Information
+                </h3>
+              </div>
+              <p className="text-sm text-foreground/50 mb-4 tracking-wide">
                 Enter your details to complete the booking.
               </p>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-medium text-foreground/70 mb-1">
                     First Name *
                   </label>
                   <input
@@ -172,12 +181,12 @@ export default function BookingPage() {
                         firstName: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-foreground placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 border border-amber-800/20 rounded-none bg-background text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-amber-700 transition-colors"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-medium text-foreground/70 mb-1">
                     Last Name *
                   </label>
                   <input
@@ -190,12 +199,12 @@ export default function BookingPage() {
                         lastName: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-foreground placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 border border-amber-800/20 rounded-none bg-background text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-amber-700 transition-colors"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-medium text-foreground/70 mb-1">
                     Email *
                   </label>
                   <input
@@ -208,12 +217,12 @@ export default function BookingPage() {
                         email: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-foreground placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 border border-amber-800/20 rounded-none bg-background text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-amber-700 transition-colors"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-medium text-foreground/70 mb-1">
                     Phone Number
                   </label>
                   <input
@@ -226,22 +235,22 @@ export default function BookingPage() {
                         phone: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-foreground placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 border border-amber-800/20 rounded-none bg-background text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-amber-700 transition-colors"
                   />
                 </div>
               </div>
             </Card>
 
             {loadingSeatmap && (
-              <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
-                  <Users className="w-5 h-5 text-primary" />
+              <Card className="p-6 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
+                <h3 className="text-xl font-light tracking-tight mb-4 flex items-center gap-2 text-foreground">
+                  <Users className="w-5 h-5 text-amber-700" />
                   Seat Selection
                 </h3>
                 <div className="flex items-center justify-center py-8">
                   <div className="text-center">
-                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3"></div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-amber-700 mb-3"></div>
+                    <p className="text-sm text-foreground/50">
                       Loading seatmap...
                     </p>
                   </div>
@@ -250,16 +259,16 @@ export default function BookingPage() {
             )}
 
             {seatmap && !("error" in seatmap) && (
-              <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
-                  <Users className="w-5 h-5 text-primary" />
+              <Card className="p-6 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
+                <h3 className="text-xl font-light tracking-tight mb-4 flex items-center gap-2 text-foreground">
+                  <Users className="w-5 h-5 text-amber-700" />
                   Seat Selection
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                <p className="text-sm text-foreground/50 mb-4">
                   Seatmap data available. Full seat selection coming soon.
                 </p>
-                <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <p className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                <div className="bg-gradient-to-br from-amber-950/5 to-background p-4 border border-amber-800/10">
+                  <p className="text-xs font-medium text-amber-700">
                     ✓ Seatmap loaded successfully
                   </p>
                 </div>
@@ -267,16 +276,16 @@ export default function BookingPage() {
             )}
 
             {seatmap && "error" in seatmap && (
-              <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
-                  <Users className="w-5 h-5 text-primary" />
+              <Card className="p-6 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
+                <h3 className="text-xl font-light tracking-tight mb-4 flex items-center gap-2 text-foreground">
+                  <Users className="w-5 h-5 text-amber-700" />
                   Seat Selection
                 </h3>
-                <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
-                  <p className="text-sm font-medium text-amber-700 dark:text-amber-400">
+                <div className="bg-amber-950/10 p-4 border border-amber-800/20">
+                  <p className="text-sm font-medium text-amber-700">
                     ⚠ Seatmap unavailable for this flight
                   </p>
-                  <p className="text-xs text-amber-600 dark:text-amber-500 mt-1">
+                  <p className="text-xs text-foreground/50 mt-1">
                     Seat selection will be available at check-in
                   </p>
                 </div>
@@ -285,25 +294,28 @@ export default function BookingPage() {
           </div>
 
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-24 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 border-slate-200 dark:border-slate-700 shadow-lg">
-              <h3 className="text-xl font-bold mb-4 text-foreground">
-                Price Summary
-              </h3>
+            <Card className="p-6 sticky top-24 border border-amber-800/10 bg-gradient-to-b from-background to-amber-950/5 rounded-none">
+              <div className="mb-6">
+                <div className="h-px w-12 bg-gradient-to-r from-amber-700 to-amber-600 mb-4" />
+                <h3 className="text-xl font-light tracking-tight text-foreground">
+                  Price Summary
+                </h3>
+              </div>
 
-              <div className="space-y-3 mb-6 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="space-y-3 mb-6 bg-amber-950/5 p-4 border border-amber-800/10">
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-slate-400">
+                  <span className="text-foreground/50">
                     Base Fare
                   </span>
-                  <span className="font-semibold text-foreground">
+                  <span className="font-medium text-foreground">
                     ${flight.price.base}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-600 dark:text-slate-400">
+                  <span className="text-foreground/50">
                     Taxes & Fees
                   </span>
-                  <span className="font-semibold text-foreground">
+                  <span className="font-medium text-foreground">
                     $
                     {(
                       parseFloat(flight.price.total) -
@@ -311,16 +323,16 @@ export default function BookingPage() {
                     ).toFixed(2)}
                   </span>
                 </div>
-                <div className="border-t border-slate-300 dark:border-slate-600 pt-3 flex justify-between text-lg">
-                  <span className="font-bold text-foreground">Total</span>
-                  <span className="font-bold text-primary text-2xl">
+                <div className="border-t border-amber-800/20 pt-3 flex justify-between text-lg">
+                  <span className="font-medium text-foreground">Total</span>
+                  <span className="font-medium text-amber-700 text-2xl">
                     ${flight.price.total}
                   </span>
                 </div>
               </div>
 
               <Button
-                className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
+                className="w-full bg-gradient-to-r from-amber-800 to-amber-700 hover:from-amber-700 hover:to-amber-600 text-white rounded-none"
                 size="lg"
                 onClick={() => {
                   toast.success("Booking Complete!", {
