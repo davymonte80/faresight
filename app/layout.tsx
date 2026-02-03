@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   title: "FareSight - Find the Best Flight Deals",
   description:
     "Smart flight search engine with real-time price tracking, intelligent filtering, and best deal recommendations",
-  generator: "v0.app",
   icons: {
     icon: [
       {

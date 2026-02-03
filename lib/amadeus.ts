@@ -578,7 +578,6 @@ export async function getBrandedFares(flightOffers: unknown) {
   }
 }
 
-// Flight Choice Prediction - Predict best flight choice
 export async function getFlightChoicePrediction(flightOffers: unknown) {
   try {
     const token = await getAccessToken();
@@ -616,7 +615,6 @@ export async function getFlightChoicePrediction(flightOffers: unknown) {
   }
 }
 
-// Flight Availabilities Search - Check flight availability
 export async function getFlightAvailabilities(
   originDestinations: unknown[],
   travelers: unknown[],
@@ -653,7 +651,6 @@ export async function getFlightAvailabilities(
   }
 }
 
-// Travel Recommendations - Get personalized recommendations
 export async function getTravelRecommendations(
   cityCodes: string[],
   travelerCountryCode: string,
@@ -729,7 +726,6 @@ export async function getFlightStatus(
   }
 }
 
-// Flight Delay Prediction - Predict flight delays
 export async function getFlightDelayPrediction(
   originLocationCode: string,
   destinationLocationCode: string,
@@ -782,7 +778,6 @@ export async function getFlightDelayPrediction(
   }
 }
 
-// Airport Routes API - Get all routes from an airport
 export async function getAirportRoutes(airportCode: string) {
   try {
     const token = await getAccessToken();
@@ -887,7 +882,6 @@ export async function getFlightCheckinLinks(
   }
 }
 
-// Airline Code Lookup - Get airline details by IATA/ICAO code
 export async function getAirlineCodeLookup(airlineCodes: string[]) {
   try {
     const token = await getAccessToken();
@@ -900,6 +894,7 @@ export async function getAirlineCodeLookup(airlineCodes: string[]) {
       `https://test.api.amadeus.com/v1/reference-data/airlines?${params}`,
       {
         headers: {
+          
           Authorization: `Bearer ${token}`,
         },
       },

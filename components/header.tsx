@@ -10,7 +10,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent flex items-center gap-2">
-              ✈️ FareSight
+             FareSight
             </h1>
           </Link>
           <ThemeToggle />

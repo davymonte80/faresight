@@ -43,11 +43,11 @@ export async function GET(request: NextRequest) {
     );
 
     console.log(`Found ${result.data?.length || 0} flights`);
-    return NextResponse.json(result);
+    return NextResponse.json({ success: true, ...result });
   } catch (error) {
     console.error("Flight search API error:", error);
     return NextResponse.json(
-      { error: "Failed to search flights", data: [] },
+      { success: false, error: "Failed to search flights", data: [] },
       { status: 500 },
     );
   }

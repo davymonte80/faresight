@@ -43,6 +43,7 @@ export const AIRLINES = {
   JB: { name: "JetBlue Airways", logo: "🇺🇸" },
   NK: { name: "Spirit Airlines", logo: "🇺🇸" },
   F9: { name: "Frontier Airlines", logo: "🇺🇸" },
+  
 } as const;
 
 // Travel class options

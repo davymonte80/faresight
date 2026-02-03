@@ -5,7 +5,7 @@ A comprehensive flight search, booking, and analytics platform featuring real-ti
 ## ✨ Features
 
 ### 🔍 Smart Flight Search
-- **Global Airport Coverage**: Search 50+ airports with enhanced African airport visibility
+- **Global Airport Coverage**: Search 50+ airports
 - **Origin & Destination Search**: Easy IATA code input with autocomplete
 - **Flexible Travel Options**: Round-trip and one-way flights
 - **Passenger Selection**: Support for adults, children, and infants

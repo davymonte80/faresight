@@ -150,13 +150,13 @@ export function PriceTrendChart({
     }
   };
 
-  // Process flight data - showing price trends over time
+  
   const getChartData = () => {
-    // ALWAYS prioritize API trend data when available
+   
     if (historicalData.length > 0) {
       console.log(`Displaying ${historicalData.length} trend data points from API`);
       
-      // Group data by appropriate intervals based on time period
+    
       const groupedData = groupDataByPeriod(historicalData, timePeriod);
       
       const trendData = groupedData.map((item) => {
@@ -180,7 +180,6 @@ export function PriceTrendChart({
     }
 
     console.log("No API trend data, using search results");
-    // Fallback: use current search results only if no API data
     if (!flights || flights.length === 0) {
       return [];
     }
