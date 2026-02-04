@@ -2,9 +2,9 @@
 
 A comprehensive flight search, booking, and analytics platform featuring real-time price tracking, advanced filtering, and complete Amadeus API integration.
 
-## ✨ Features
+## Features
 
-### 🔍 Smart Flight Search
+###  Smart Flight Search
 - **Global Airport Coverage**: Search 50+ airports
 - **Origin & Destination Search**: Easy IATA code input with autocomplete
 - **Flexible Travel Options**: Round-trip and one-way flights
@@ -12,7 +12,7 @@ A comprehensive flight search, booking, and analytics platform featuring real-ti
 - **Travel Class Options**: Economy, Premium Economy, Business, First Class
 - **Recent Searches**: Quick access to your previous searches (stored locally)
 
-### 💰 Advanced Price Trends & Analytics
+###  Advanced Price Trends & Analytics
 - **Interactive Charts**: Line and bar chart visualizations with 250 data points
 - **Time Period Selection**: 7 Days, 1 Month, 3 Months, 6 Months, 1 Year
 - **Dual Data Sources**: Amadeus API + Search Results fallback
@@ -21,14 +21,14 @@ A comprehensive flight search, booking, and analytics platform featuring real-ti
 - **Date-Based Trends**: Identify the best days to travel
 - **Responsive Charts**: Optimized for mobile, tablet, and desktop
 
-### 🎫 Complete Booking Flow
+### Complete Booking Flow
 - **Flight Offers Price**: Confirm real-time pricing before booking
 - **Create Orders**: Complete booking with traveler details
 - **Order Management**: View and cancel bookings
 - **Seatmap Display**: Select seats with pricing
 - **Branded Fares**: Upsell to premium fare options
 
-### 🔧 Advanced Filtering
+### Advanced Filtering
 - **Price Range Slider**: Filter flights by maximum price
 - **Stops Filter**: Non-stop, 1 stop, 2+ stops options
 - **Airlines Filter**: Select specific airlines from results
@@ -37,27 +37,27 @@ A comprehensive flight search, booking, and analytics platform featuring real-ti
 - **Duration Limits**: Filter by total flight duration
 - **Clear All**: Reset filters with one click
 
-### 🎯 Smart Sorting & Recommendations
+### Smart Sorting & Recommendations
 - **Multiple Sort Options**: Price, Duration, or Departure time
 - **Smart Badges**: "Cheapest", "Fastest", or "Best Value" indicators
 - **Detailed Flight Information**: View all segments, stops, and timings
 - **Flight Choice Prediction**: AI-powered recommendations
 - **Travel Recommendations**: Personalized destination suggestions
 
-### 📊 Analytics & Insights
+### Analytics & Insights
 - **Flight Price Analysis**: Price metrics, quartiles, and trends
 - **Flight Delay Prediction**: AI-powered delay probability
 - **On Demand Flight Status**: Real-time flight tracking
 - **Airport On-Time Performance**: Delay statistics by airport
 - **Airport Routes**: All direct destinations from an airport
 
-### 📱 Fully Responsive Design
+### Fully Responsive Design
 - **Mobile First**: Optimized for phones and tablets
 - **Desktop View**: Advanced layout with side-by-side filters and charts
 - **Adaptive UI**: Filters and charts adapt to screen size
 - **Dark Mode**: Full dark mode support
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React 19 with Next.js 16.1.6 (App Router)
 - **Styling**: Tailwind CSS 3.4.17
@@ -68,7 +68,7 @@ A comprehensive flight search, booking, and analytics platform featuring real-ti
 - **Type Safety**: TypeScript 5.7.3
 - **Build**: Turbopack
 
-## 🌍 Amadeus API Integration (22 APIs)
+## Amadeus API Integration (22 APIs)
 
 ### Flight Shopping & Search
 ✅ Flight Offers Search  
@@ -105,7 +105,7 @@ A comprehensive flight search, booking, and analytics platform featuring real-ti
 ### Travel Recommendations
 ✅ Travel Recommendations  
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -121,7 +121,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-## 📚 Project Structure
+## Project Structure
 
 ```
 faresight/
@@ -144,7 +144,7 @@ faresight/
     └── flight.ts
 ```
 
-## ✅ Implementation Checklist
+## Implementation Checklist
 
 - [x] Search & Results with Origin, Destination, Dates inputs
 - [x] Flight results list with detailed information
@@ -159,7 +159,7 @@ faresight/
 - [x] Dark mode support
 - [x] TypeScript for type safety
 
-## 🎨 Design Features
+## Design Features
 
 - Clean, modern UI with gradient backgrounds
 - Smooth animations and transitions
